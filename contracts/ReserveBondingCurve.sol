@@ -52,10 +52,10 @@ library ReserveBondingCurve {
     /**
     * @dev function with the uniswap bonding curve logic but with the reserve ratio logic thrown in
      */
-    function _getAmountOut(uint amountIn, uint reserveIn, uint reserveOut, uint _reserveRatio, bool purchaseIn) private pure returns(uint){
+    function _getAmountOut(uint amountIn, uint reserveIn, uint reserveOut, uint _reserveRatio, bool purchaseIn) internal pure returns(uint){
         uint amountInWithFee = amountIn;
         uint numerator = amountInWithFee * reserveOut;
-        uint denominator = ((reserveIn) + ((ONE_HUDNRED_PERCENT - _reserveRatio) * amountInWithFee));
+        uint denominator = ((reserveIn) + ((ONE_HUDNRED_PERCENT - _reserveRatio) * amountInWithFee)/ ONE_HUDNRED_PERCENT);
         return purchaseIn ? 
         (numerator * _reserveRatio) / ((denominator) * ONE_HUDNRED_PERCENT) : 
         (numerator * ONE_HUDNRED_PERCENT) / ((denominator) * _reserveRatio); 
